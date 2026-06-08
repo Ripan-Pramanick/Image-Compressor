@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+      --glass-bg: rgba(255, 255, 255, 0.7);
+          --glass-border: rgba(255, 255, 255, 0.2);
+              --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+                }
+
+                  .dark {
+                      --glass-bg: rgba(17, 25, 40, 0.75);
+                          --glass-border: rgba(255, 255, 255, 0.125);
+                              --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+                                }
+
+                                  html {
+                                      scroll-behavior: smooth;
+                                        }
+
+                                          body {
+                                              @apply antialiased;
+                                                }
+
+                                                  /* Custom scrollbar */
+                                                    ::-webkit-scrollbar {
+                                                        width: 8px;
+                                                            height: 8px;
+                                                              }
+
+                                                                ::-webkit-scrollbar-track {
+                                                                    @apply bg-transparent;
+                                                                      }
+
+                                                                        ::-webkit-scrollbar-thumb {
+                                                                            @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+                                                                              }
+
+                                                                                ::-webkit-scrollbar-thumb:hover {
+                                                                                    @apply bg-gray-400 dark:bg-gray-600;
+                                                                                      }
+                                                                                      }
+
+                                                                                      @layer components {
+                                                                                        .glass {
+                                                                                            background: var(--glass-bg);
+                                                                                                border: 1px solid var(--glass-border);
+                                                                                                    box-shadow: var(--glass-shadow);
+                                                                                                        backdrop-filter: blur(20px);
+                                                                                                            -webkit-backdrop-filter: blur(20px);
+                                                                                                              }
+
+                                                                                                                .glass-hover {
+                                                                                                                    @apply transition-all duration-300;
+                                                                                                                      }
+
+                                                                                                                        .glass-hover:hover {
+                                                                                                                            background: rgba(255, 255, 255, 0.9);
+                                                                                                                                box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+                                                                                                                                    transform: translateY(-2px);
+                                                                                                                                      }
+
+                                                                                                                                        .dark .glass-hover:hover {
+                                                                                                                                            background: rgba(30, 41, 59, 0.9);
+                                                                                                                                                box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+                                                                                                                                                  }
+
+                                                                                                                                                    .gradient-text {
+                                                                                                                                                        @apply bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent;
+                                                                                                                                                          }
+
+                                                                                                                                                            .card-grid {
+                                                                                                                                                                @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+                                                                                                                                                                  }
+                                                                                                                                                                  }
+
+                                                                                                                                                                  @layer utilities {
+                                                                                                                                                                    .text-balance {
+                                                                                                                                                                        text-wrap: balance;
+                                                                                                                                                                          }
+
+                                                                                                                                                                            .animation-delay-200 {
+                                                                                                                                                                                animation-delay: 200ms;
+                                                                                                                                                                                  }
+
+                                                                                                                                                                                    .animation-delay-400 {
+                                                                                                                                                                                        animation-delay: 400ms;
+                                                                                                                                                                                          }
+
+                                                                                                                                                                                            .animation-delay-600 {
+                                                                                                                                                                                                animation-delay: 600ms;
+                                                                                                                                                                                                  }
+                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                  /* Skeleton loading animation */
+                                                                                                                                                                                                  .skeleton {
+                                                                                                                                                                                                    background: linear-gradient(
+                                                                                                                                                                                                        90deg,
+                                                                                                                                                                                                            rgba(190, 190, 190, 0.2) 25%,
+                                                                                                                                                                                                                rgba(129, 129, 129, 0.24) 50%,
+                                                                                                                                                                                                                    rgba(190, 190, 190, 0.2) 75%
+                                                                                                                                                                                                                      );
+                                                                                                                                                                                                                        background-size: 200% 100%;
+                                                                                                                                                                                                                          animation: skeleton-loading 1.5s infinite;
+                                                                                                                                                                                                                          }
+
+                                                                                                                                                                                                                          .dark .skeleton {
+                                                                                                                                                                                                                            background: linear-gradient(
+                                                                                                                                                                                                                                90deg,
+                                                                                                                                                                                                                                    rgba(255, 255, 255, 0.06) 25%,
+                                                                                                                                                                                                                                        rgba(255, 255, 255, 0.1) 50%,
+                                                                                                                                                                                                                                            rgba(255, 255, 255, 0.06) 75%
+                                                                                                                                                                                                                                              );
+                                                                                                                                                                                                                                                background-size: 200% 100%;
+                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                @keyframes skeleton-loading {
+                                                                                                                                                                                                                                                  0% {
+                                                                                                                                                                                                                                                      background-position: 200% 0;
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                          100% {
+                                                                                                                                                                                                                                                              background-position: -200% 0;
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                /* Range slider styling */
+                                                                                                                                                                                                                                                                input[type='range'] {
+                                                                                                                                                                                                                                                                  -webkit-appearance: none;
+                                                                                                                                                                                                                                                                    appearance: none;
+                                                                                                                                                                                                                                                                      height: 8px;
+                                                                                                                                                                                                                                                                        background: #e2e8f0;
+                                                                                                                                                                                                                                                                          border-radius: 5px;
+                                                                                                                                                                                                                                                                            outline: none;
+                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                            input[type='range']::-webkit-slider-thumb {
+                                                                                                                                                                                                                                                                              -webkit-appearance: none;
+                                                                                                                                                                                                                                                                                appearance: none;
+                                                                                                                                                                                                                                                                                  width: 20px;
+                                                                                                                                                                                                                                                                                    height: 20px;
+                                                                                                                                                                                                                                                                                      border-radius: 50%;
+                                                                                                                                                                                                                                                                                        background: #0ea5e9;
+                                                                                                                                                                                                                                                                                          cursor: pointer;
+                                                                                                                                                                                                                                                                                            box-shadow: 0 2px 6px rgba(14, 165, 233, 0.4);
+                                                                                                                                                                                                                                                                                              transition: all 0.2s;
+                                                                                                                                                                                                                                                                                              }
+
+                                                                                                                                                                                                                                                                                              input[type='range']::-webkit-slider-thumb:hover {
+                                                                                                                                                                                                                                                                                                transform: scale(1.1);
+                                                                                                                                                                                                                                                                                                  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.6);
+                                                                                                                                                                                                                                                                                                  }
+
+                                                                                                                                                                                                                                                                                                  .dark input[type='range'] {
+                                                                                                                                                                                                                                                                                                    background: #374151;
+                                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                                    /* Print styles */
+                                                                                                                                                                                                                                                                                                    @media print {
+                                                                                                                                                                                                                                                                                                      .no-print {
+                                                                                                                                                                                                                                                                                                          display: none !important;
+                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                            }

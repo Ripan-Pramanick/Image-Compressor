@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FileForge Icon Generator</title>
+    <style>
+        body { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 20px; 
+            padding: 40px;
+            font-family: system-ui, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+        canvas { border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        button {
+            padding: 12px 24px;
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover { background: #0284c7; }
+        .info { color: #94a3b8; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <h1>FileForge Icon Generator</h1>
+    <canvas id="icon192" width="192" height="192"></canvas>
+    <p>192×192 — Standard Icon</p>
+    <canvas id="icon512" width="512" height="512"></canvas>
+    <p>512×512 — Large Icon</p>
+    <canvas id="maskable" width="512" height="512"></canvas>
+    <p>512×512 — Maskable Icon (safe zone)</p>
+    <button onclick="downloadAll()">Download All 3 Icons</button>
+    <p class="info">Download and place them in: public/icons/</p>
+
+    <script>
+        function drawIcon(canvas, size, isMaskable = false) {
+            const ctx = canvas.getContext('2d');
+            const center = size / 2;
+            const iconSize = isMaskable ? size * 0.6 : size * 0.75;
+            const x = center - iconSize / 2;
+            const y = center - iconSize / 2;
+            const radius = iconSize * 0.22;
+
+            // Background
+            ctx.fillStyle = '#0ea5e9';
+            ctx.beginPath();
+            ctx.roundRect(x, y, iconSize, iconSize, radius);
+            ctx.fill();
+
+            // Gradient overlay
+            const gradient = ctx.createLinearGradient(x, y, x + iconSize, y + iconSize);
+            gradient.addColorStop(0, 'rgba(255,255,255,0.2)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0.1)');
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.roundRect(x, y, iconSize, iconSize, radius);
+            ctx.fill();
+
+            // "F" letter
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${iconSize * 0.55}px system-ui, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('F', center, center + iconSize * 0.02);
+
+            // For maskable, draw safe zone indicator
+            if (isMaskable) {
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([8, 8]);
+                ctx.beginPath();
+                ctx.arc(center, center, size * 0.4, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+
+        function downloadAll() {
+            // Draw all icons
+            drawIcon(document.getElementById('icon192'), 192);
+            drawIcon(document.getElementById('icon512'), 512);
+            drawIcon(document.getElementById('maskable'), 512, true);
+
+            // Download 192
+            const link192 = document.createElement('a');
+            link192.download = 'icon-192.png';
+            link192.href = document.getElementById('icon192').toDataURL('image/png');
+            link192.click();
+
+            // Download 512
+            setTimeout(() => {
+                const link512 = document.createElement('a');
+                link512.download = 'icon-512.png';
+                link512.href = document.getElementById('icon512').toDataURL('image/png');
+                link512.click();
+            }, 200);
+
+            // Download maskable
+            setTimeout(() => {
+                const linkMask = document.createElement('a');
+                linkMask.download = 'maskable-icon.png';
+                linkMask.href = document.getElementById('maskable').toDataURL('image/png');
+                linkMask.click();
+            }, 400);
+        }
+
+        // Initial draw
+        drawIcon(document.getElementById('icon192'), 192);
+        drawIcon(document.getElementById('icon512'), 512);
+        drawIcon(document.getElementById('maskable'), 512, true);
+    </script>
+</body>
+</html>
