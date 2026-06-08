@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST='{"lib/pdf-processing.ts -> pdfjs-dist/legacy/build/pdf":{"id":2392,"files":["static/chunks/51fb665c.9889028ce756f084.js","static/chunks/81.cb12327912430370.js"]}}';
