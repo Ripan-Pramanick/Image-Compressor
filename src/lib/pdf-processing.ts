@@ -1,5 +1,6 @@
 import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib';
-import * as pdfjsLib from 'pdfjs-dist';
+// pdfjs-dist imports can cause build-time issues when pulled into server code.
+// Import it dynamically inside client-only functions to avoid bundling on the server.
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
@@ -98,8 +99,16 @@ if (typeof window !== 'undefined') {
                                                                                                                                                                           file: File,
                                                                                                                                                                             format: 'jpeg' | 'png' = 'png'
                                                                                                                                                                             ): Promise<Blob[]> {
-                                                                                                                                                                              const arrayBuffer = await file.arrayBuffer();
-                                                                                                                                                                                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                                                                                                                                                                            const arrayBuffer = await file.arrayBuffer();
+                                                                                                                                                                              // Dynamically import the legacy pdf.js build on the client only.
+                                                                                                                                                                              const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf');
+                                                                                                                                                                              if (typeof window !== 'undefined') {
+                                                                                                                                                                                // configure worker
+                                                                                                                                                                                pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+                                                                                                                                                                              }
+
+                                                                                                                                                                              const loadingTask = pdfjsLib.getDocument(arrayBuffer);
+                                                                                                                                                                              const pdf = await loadingTask.promise;
                                                                                                                                                                                   const images: Blob[] = [];
 
                                                                                                                                                                                     for (let i = 1; i <= pdf.numPages; i++) {

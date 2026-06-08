@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Transpile pdfjs-dist to avoid syntax unsupported by older build targets.
+  transpilePackages: ['pdfjs-dist'],
   experimental: {
     serverActions: {
       bodySizeLimit: '50mb',
