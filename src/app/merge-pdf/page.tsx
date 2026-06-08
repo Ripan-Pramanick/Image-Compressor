@@ -1,14 +1,6 @@
 'use client';
 
-import type { Metadata } from 'next';
-import { generateMetadata } from '@/config/seo';
 import { PdfMerger } from '@/components/tools/PdfMerger';
-
-export const metadata = generateMetadata({
-  title: 'Merge PDF - Combine PDFs Online Free',
-    description: 'Combine multiple PDF files into a single document. Drag and drop to reorder pages.',
-      path: '/merge-pdf',
-      });
 
       export default function MergePdfPage() {
         return (

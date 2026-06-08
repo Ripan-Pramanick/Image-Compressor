@@ -13,14 +13,7 @@ import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { useToast } from '@/hooks/useToast';
 import { compressImage, createImagePreview } from '@/lib/image-processing';
 import { downloadBlob, calculateCompressionRatio, formatBytes } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { Download, Settings, Sliders, ImageIcon } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'Image Compressor - Compress Images Online Free',
-    description: 'Compress JPG, PNG, WebP, and AVIF images directly in your browser. No upload required. Your files stay on your device.',
-      path: '/image-compressor',
-      });
 
       export default function ImageCompressorPage() {
         const [quality, setQuality] = useState(80);

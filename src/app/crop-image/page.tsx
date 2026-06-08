@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import type { Metadata } from 'next';
 import { ToolLayout } from '@/components/ui/ToolLayout';
 import { DropZone } from '@/components/ui/DropZone';
 import { Button } from '@/components/ui/Button';
@@ -10,14 +9,7 @@ import { useToast } from '@/hooks/useToast';
 import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { createImagePreview } from '@/lib/image-processing';
 import { downloadBlob } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { Crop, Download, RotateCcw } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'Crop Image - Free Online Image Cropper',
-  description: 'Crop images with precise control. Choose from preset aspect ratios or freeform crop.',
-  path: '/crop-image',
-});
 
 const ASPECT_RATIOS = [
   { label: 'Freeform', value: 0 },

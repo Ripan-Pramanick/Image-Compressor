@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import type { Metadata } from 'next';
 import { ToolLayout } from '@/components/ui/ToolLayout';
 import { DropZone } from '@/components/ui/DropZone';
 import { FileList } from '@/components/ui/FileList';
@@ -13,14 +12,7 @@ import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { useToast } from '@/hooks/useToast';
 import { imagesToPDF } from '@/lib/pdf-processing';
 import { downloadBlob } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { FileUp, Download } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'JPG to PDF - Convert Images to PDF Free',
-    description: 'Convert JPG and PNG images to PDF documents. Combine multiple images into one PDF.',
-      path: '/jpg-to-pdf',
-      });
 
       export default function JpgToPdfPage() {
         const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);

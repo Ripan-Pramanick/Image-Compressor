@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import type { Metadata } from 'next';
 import { ToolLayout } from '@/components/ui/ToolLayout';
 import { DropZone } from '@/components/ui/DropZone';
 import { Button } from '@/components/ui/Button';
@@ -11,14 +10,7 @@ import { useToast } from '@/hooks/useToast';
 import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { splitPDF, extractPDFPages, deletePDFPages } from '@/lib/pdf-processing';
 import { downloadBlob } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { Scissors, Download, Copy, Trash2 } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'Split PDF - Extract & Delete Pages Free',
-    description: 'Split PDF files, extract specific pages, or delete pages. All processing happens in your browser.',
-      path: '/split-pdf',
-      });
 
       export default function SplitPdfPage() {
         const [sourceFile, setSourceFile] = useState<File | null>(null);

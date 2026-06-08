@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import type { Metadata } from 'next';
 import { ToolLayout } from '@/components/ui/ToolLayout';
 import { DropZone } from '@/components/ui/DropZone';
 import { FileList } from '@/components/ui/FileList';
@@ -13,14 +12,7 @@ import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { useToast } from '@/hooks/useToast';
 import { convertImage, createImagePreview } from '@/lib/image-processing';
 import { downloadBlob, formatBytes } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { Repeat, Download, ImageIcon, FileImage } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'Image Converter - Convert Between Formats Free',
-    description: 'Convert images between JPG, PNG, WebP, and AVIF formats directly in your browser.',
-      path: '/image-converter',
-      });
 
       const FORMATS = [
         { value: 'jpeg', label: 'JPG', extension: 'jpg', mime: 'image/jpeg' },

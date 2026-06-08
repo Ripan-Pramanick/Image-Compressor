@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import type { Metadata } from 'next';
 import { ToolLayout } from '@/components/ui/ToolLayout';
 import { DropZone } from '@/components/ui/DropZone';
 import { FileList } from '@/components/ui/FileList';
@@ -13,14 +12,7 @@ import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { useToast } from '@/hooks/useToast';
 import { resizeImage, getImageDimensions, createImagePreview } from '@/lib/image-processing';
 import { downloadBlob, formatBytes } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { Maximize2, Download, Lock } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'Resize Image - Resize Images Online Free',
-  description: 'Resize images to exact dimensions or percentage. Maintain aspect ratio or set custom sizes.',
-  path: '/resize-image',
-});
 
 const PRESETS = [
   { label: 'HD (1280×720)', width: 1280, height: 720 },

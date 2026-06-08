@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import type { Metadata } from 'next';
 import { ToolLayout } from '@/components/ui/ToolLayout';
 import { DropZone } from '@/components/ui/DropZone';
 import { FileList } from '@/components/ui/FileList';
@@ -12,14 +11,7 @@ import { useFileProcessing } from '@/hooks/useFileProcessing';
 import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { useToast } from '@/hooks/useToast';
 import { downloadBlob, formatBytes, calculateCompressionRatio } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { FileDown, Download, Zap } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'PDF Compressor - Compress PDF Files Free',
-    description: 'Compress PDF files online. Reduce file size while maintaining quality. No upload required.',
-      path: '/pdf-compressor',
-      });
 
       const COMPRESSION_LEVELS = [
         { label: 'Maximum', value: 30, description: 'Smallest file size' },

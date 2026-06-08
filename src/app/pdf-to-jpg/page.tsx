@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import type { Metadata } from 'next';
 import { ToolLayout } from '@/components/ui/ToolLayout';
 import { DropZone } from '@/components/ui/DropZone';
 import { Button } from '@/components/ui/Button';
@@ -11,14 +10,7 @@ import { useToast } from '@/hooks/useToast';
 import { useCompressionHistory } from '@/hooks/useCompressionHistory';
 import { pdfToImages } from '@/lib/pdf-processing';
 import { downloadBlob } from '@/lib/utils';
-import { generateMetadata } from '@/config/seo';
 import { FileImage, Download } from 'lucide-react';
-
-export const metadata = generateMetadata({
-  title: 'PDF to JPG - Convert PDF Pages to Images Free',
-    description: 'Convert PDF pages to high-quality JPG images. Extract all pages or select specific ones.',
-      path: '/pdf-to-jpg',
-      });
 
       export default function PdfToJpgPage() {
         const [sourceFile, setSourceFile] = useState<File | null>(null);
