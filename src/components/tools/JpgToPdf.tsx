@@ -24,7 +24,7 @@ export function JpgToPdf() {
                       const handleConvert = useCallback(async () => {
                           try {
                                 const data = await imagesToPDF(files.map((f) => f.file));
-                                      const blob = new Blob([data], { type: 'application/pdf' });
+                                      const blob = new Blob([new Uint8Array(data) as unknown as BlobPart], { type: 'application/pdf' });
                                             setPdf(blob);
                                                   showSuccess('Converted');
                                                       } catch { showError('Failed'); }

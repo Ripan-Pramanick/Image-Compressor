@@ -29,15 +29,15 @@ export function PdfSplitter() {
                                                                   return { start: s, end: e || s };
                                                                           });
                                                                                   const data = await splitPDF(file, ranges);
-                                                                                          res = data.map((d) => ({ name: d.filename, blob: new Blob([d.data], { type: 'application/pdf' }) }));
+                                                                                          res = data.map((d) => ({ name: d.filename, blob: new Blob([new Uint8Array(d.data) as unknown as BlobPart], { type: 'application/pdf' }) }));
                                                                                                 } else if (mode === 'extract') {
                                                                                                         const pages = input.split(',').map(Number).filter((p) => !isNaN(p));
                                                                                                                 const data = await extractPDFPages(file, pages);
-                                                                                                                        res = [{ name: 'extracted.pdf', blob: new Blob([data], { type: 'application/pdf' }) }];
+                                                                                                                        res = [{ name: 'extracted.pdf', blob: new Blob([new Uint8Array(data) as unknown as BlobPart], { type: 'application/pdf' }) }];
                                                                                                                               } else if (mode === 'delete') {
                                                                                                                                       const pages = input.split(',').map(Number).filter((p) => !isNaN(p));
                                                                                                                                               const data = await deletePDFPages(file, pages);
-                                                                                                                                                      res = [{ name: `cleaned_${file.name}`, blob: new Blob([data], { type: 'application/pdf' }) }];
+                                                                                                                                                      res = [{ name: `cleaned_${file.name}`, blob: new Blob([new Uint8Array(data) as unknown as BlobPart], { type: 'application/pdf' }) }];
                                                                                                                                                             }
                                                                                                                                                                   setResults(res);
                                                                                                                                                                         showSuccess('Done');

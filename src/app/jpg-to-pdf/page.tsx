@@ -42,8 +42,7 @@ export const metadata = generateMetadata({
                                                         const handleConvert = useCallback(async () => {
                                                             try {
                                                                   const pdfData = await imagesToPDF(files.map((f) => f.file));
-                                                                        const blob = new Blob([pdfData], { type: 'application/pdf' });
-                                                                              setPdfBlob(blob);
+                                                                              const blob = new Blob([new Uint8Array(pdfData)], { type: 'application/pdf' });
 
                                                                                     addToHistory({
                                                                                             toolId: 'jpg-to-pdf',

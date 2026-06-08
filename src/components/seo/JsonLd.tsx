@@ -6,4 +6,3 @@ export function JsonLd({ data }: { data: Record<string, unknown> }) {
                           />
                             );
                             }
-}

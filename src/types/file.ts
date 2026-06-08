@@ -68,4 +68,3 @@ export interface FileWithMetadata {
                                                                                             | 'image/tiff';
 
                                                                                             export type SupportedPDFType = 'application/pdf';
-}

@@ -1,4 +1,5 @@
-import { FileWithMetadata, CompressionOptions, ProcessingStats } from '@/types/file';
+import { FileWithMetadata, CompressionOptions } from '@/types/file';
+import { ProcessingStats } from '@/types/tools';
 import { compressImage, convertImage, resizeImage } from './image-processing';
 import { calculateCompressionRatio, generateId } from './utils';
 

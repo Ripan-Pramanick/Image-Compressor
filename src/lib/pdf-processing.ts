@@ -1,4 +1,4 @@
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib';
 import * as pdfjsLib from 'pdfjs-dist';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
@@ -81,20 +81,19 @@ if (typeof window !== 'undefined') {
                                                                                                                                                   }
 
                                                                                                                                                   export async function rotatePDF(
-                                                                                                                                                    file: File,
-                                                                                                                                                      rotation: 0 | 90 | 180 | 270
-                                                                                                                                                      ): Promise<Uint8Array> {
-                                                                                                                                                        const arrayBuffer = await file.arrayBuffer();
-                                                                                                                                                          const pdf = await PDFDocument.load(arrayBuffer);
-                                                                                                                                                            
-                                                                                                                                                              const pages = pdf.getPages();
-                                                                                                                                                                pages.forEach((page) => {
-                                                                                                                                                                    page.setRotation(page.getRotation().angle + rotation);
-                                                                                                                                                                      });
+  file: File,
+  rotation: 0 | 90 | 180 | 270
+): Promise<Uint8Array> {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
 
-                                                                                                                                                                        return await pdf.save();
-                                                                                                                                                                        }
+  const pages = pdf.getPages();
+  pages.forEach((page) => {
+    page.setRotation(degrees(page.getRotation().angle + rotation));
+  });
 
+  return await pdf.save();
+}
                                                                                                                                                                         export async function pdfToImages(
                                                                                                                                                                           file: File,
                                                                                                                                                                             format: 'jpeg' | 'png' = 'png'

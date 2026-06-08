@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface ProgressBarProps {
-  progress: number;
+  progress?: number;
     label?: string;
       size?: 'sm' | 'md' | 'lg';
         showPercentage?: boolean;
@@ -14,7 +14,7 @@ interface ProgressBarProps {
             }
 
             export function ProgressBar({
-              progress,
+              progress = 0,
                 label,
                   size = 'md',
                     showPercentage = true,
@@ -28,17 +28,18 @@ interface ProgressBarProps {
                                         };
 
                                           const clampedProgress = Math.min(100, Math.max(0, progress));
+                                          const showPercentageLabel = showPercentage && !indeterminate;
 
                                             return (
                                                 <div className={cn('w-full', className)}>
-                                                      {(label || showPercentage) && (
+                                                      {(label || showPercentageLabel) && (
                                                               <div className="flex justify-between items-center mb-1.5">
                                                                         {label && (
                                                                                     <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
                                                                                                   {label}
                                                                                                               </span>
                                                                                                                         )}
-                                                                                                                                  {showPercentage && (
+                                                                                                                                  {showPercentageLabel && (
                                                                                                                                               <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
                                                                                                                                                             {Math.round(clampedProgress)}%
                                                                                                                                                                         </span>

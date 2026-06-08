@@ -65,4 +65,3 @@ export function createImageCompressionWorker(): Worker {
                                                                                                                                                                                                                                 this.workers = [];
                                                                                                                                                                                                                                   }
                                                                                                                                                                                                                                   }
-}
