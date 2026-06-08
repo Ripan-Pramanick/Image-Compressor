@@ -4,12 +4,7 @@ import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
-// Initialize PDF.js worker
-if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-  }
-
-  export async function mergePDFs(files: File[]): Promise<Uint8Array> {
+export async function mergePDFs(files: File[]): Promise<Uint8Array> {
     const mergedPdf = await PDFDocument.create();
 
       for (const file of files) {

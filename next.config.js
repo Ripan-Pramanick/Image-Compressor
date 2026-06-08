@@ -48,6 +48,12 @@ const nextConfig = {
         path: false,
         crypto: false,
       };
+      // Prefer the legacy, transpiled PDF.js build for client-side bundles
+      config.resolve = config.resolve || {};
+      config.resolve.alias = {
+        ...(config.resolve.alias || {}),
+        'pdfjs-dist': 'pdfjs-dist/legacy/build/pdf',
+      };
     }
     return config;
   },
