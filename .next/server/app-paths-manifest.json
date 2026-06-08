@@ -1,1 +1,6 @@
-{}
+{
+  "/page": "app/page.js",
+  "/image-compressor/page": "app/image-compressor/page.js",
+  "/about/page": "app/about/page.js",
+  "/privacy/page": "app/privacy/page.js"
+}
