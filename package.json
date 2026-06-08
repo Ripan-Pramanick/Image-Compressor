@@ -23,21 +23,22 @@
                                                                                 "react-compare-slider": "^5.1.0",
                                                                                     "react-hot-toast": "^2.4.1",
                                                                                         "clsx": "^2.1.0",
-                                                                                            "tailwind-merge": "^2.2.0"
-                                                                                              },
-                                                                                                "devDependencies": {
-                                                                                                    "@types/node": "^20.11.0",
-                                                                                                        "@types/react": "^19.0.0",
-                                                                                                            "@types/react-dom": "^19.0.0",
-                                                                                                                "@types/file-saver": "^2.0.7",
-                                                                                                                    "typescript": "^5.3.3",
-                                                                                                                        "tailwindcss": "^3.4.0",
-                                                                                                                            "autoprefixer": "^10.4.17",
-                                                                                                                                "postcss": "^8.4.33",
-                                                                                                                                    "eslint": "^8.56.0",
-                                                                                                                                        "eslint-config-next": "15.0.0",
-                                                                                                                                            "@tailwindcss/forms": "^0.5.7",
-                                                                                                                                                "@tailwindcss/typography": "^0.5.10"
-                                                                                                                                                  }
-                                                                                                                                                  }
+                                                                                            "tailwind-merge": "^2.2.0",
+                                                                                                "lucide-react": "^0.400.0"
+                                                                                                  },
+                                                                                                    "devDependencies": {
+                                                                                                        "@types/node": "^20.11.0",
+                                                                                                            "@types/react": "^19.0.0",
+                                                                                                                "@types/react-dom": "^19.0.0",
+                                                                                                                    "@types/file-saver": "^2.0.7",
+                                                                                                                        "typescript": "^5.3.3",
+                                                                                                                            "tailwindcss": "^3.4.0",
+                                                                                                                                "autoprefixer": "^10.4.17",
+                                                                                                                                    "postcss": "^8.4.33",
+                                                                                                                                        "eslint": "^8.56.0",
+                                                                                                                                            "eslint-config-next": "15.0.0",
+                                                                                                                                                "@tailwindcss/forms": "^0.5.7",
+                                                                                                                                                    "@tailwindcss/typography": "^0.5.10"
+                                                                                                                                                      }
+                                                                                                                                                      }
 }
