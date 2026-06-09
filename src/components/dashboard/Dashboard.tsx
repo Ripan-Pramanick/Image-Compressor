@@ -12,7 +12,7 @@ import { FileCheck, HardDrive, Activity, Star } from 'lucide-react';
 
 export function Dashboard() {
       const { history } = useCompressionHistory();
-      const [favorites] = useLocalStorage('fileforge-favorites', []);
+      const [favorites] = useLocalStorage('compressora-favorites', []);
 
       const stats = useMemo(() => {
             const totalFiles = history.reduce(

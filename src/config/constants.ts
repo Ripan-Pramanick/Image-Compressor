@@ -1,13 +1,13 @@
-export const APP_NAME = 'FileForge';
+export const APP_NAME = 'compressora';
 export const APP_DESCRIPTION = 'Privacy-first file processing toolkit. All processing happens in your browser.';
-export const APP_URL = 'https://fileforge.app';
+export const APP_URL = 'https://compressora.app';
 
 export const STORAGE_KEYS = {
-  HISTORY: 'fileforge-history',
-  PREFERENCES: 'fileforge-preferences',
-  DASHBOARD: 'fileforge-dashboard',
-  DAILY_USAGE: 'fileforge-daily-usage',
-  FAVORITES: 'fileforge-favorites',
+  HISTORY: 'compressora-history',
+  PREFERENCES: 'compressora-preferences',
+  DASHBOARD: 'compressora-dashboard',
+  DAILY_USAGE: 'compressora-daily-usage',
+  FAVORITES: 'compressora-favorites',
 } as const;
 
 export const LIMITS = {

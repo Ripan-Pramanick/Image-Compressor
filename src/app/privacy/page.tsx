@@ -4,7 +4,7 @@ import { Shield, Eye, Server, Cookie, Lock } from 'lucide-react';
 
 export const metadata: Metadata = generateMetadata({
   title: 'Privacy Policy',
-  description: 'FileForge privacy policy. Your files never leave your device. No tracking, no accounts, no servers.',
+  description: 'compressora privacy policy. Your files never leave your device. No tracking, no accounts, no servers.',
   path: '/privacy',
 });
 
@@ -12,12 +12,12 @@ const sections = [
   {
     icon: Shield,
     title: 'Your Files Stay On Your Device',
-    content: 'FileForge processes all files locally in your browser. Your files are never uploaded to any server. We have no servers to receive your files. Everything happens right on your device.',
+    content: 'compressora processes all files locally in your browser. Your files are never uploaded to any server. We have no servers to receive your files. Everything happens right on your device.',
   },
   {
     icon: Eye,
     title: 'No Tracking or Analytics',
-    content: 'We don\'t use any analytics tools, tracking pixels, or monitoring services. We have no way to know who uses FileForge or how they use it. Your activity is completely private.',
+    content: 'We don\'t use any analytics tools, tracking pixels, or monitoring services. We have no way to know who uses compressora or how they use it. Your activity is completely private.',
   },
   {
     icon: Server,
@@ -27,12 +27,12 @@ const sections = [
   {
     icon: Cookie,
     title: 'No Cookies (Except Essential)',
-    content: 'FileForge doesn\'t use tracking cookies or third-party cookies. The only cookie we might use is for storing your theme preference, which is strictly functional.',
+    content: 'compressora doesn\'t use tracking cookies or third-party cookies. The only cookie we might use is for storing your theme preference, which is strictly functional.',
   },
   {
     icon: Lock,
     title: 'No Account Required',
-    content: 'FileForge doesn\'t have user accounts. There\'s no signup, no login, and no personal information collected. You can use all features immediately and anonymously.',
+    content: 'compressora doesn\'t have user accounts. There\'s no signup, no login, and no personal information collected. You can use all features immediately and anonymously.',
   },
 ];
 
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
           Privacy Policy
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          FileForge is designed from the ground up to protect your privacy.
+          compressora is designed from the ground up to protect your privacy.
           Here's exactly how we handle your data.
         </p>
         <div className="inline-flex items-center gap-2 mt-6 px-4 py-2 bg-green-100 dark:bg-green-900/30 rounded-full">
@@ -81,11 +81,11 @@ export default function PrivacyPage() {
           Questions About Privacy?
         </h2>
         <p className="text-gray-600 dark:text-gray-400 mb-6">
-          Since FileForge is open source, you can audit our code yourself to verify
+          Since compressora is open source, you can audit our code yourself to verify
           our privacy claims.
         </p>
         {/* <a
-          href="https://github.com/fileforge/fileforge"
+          href="https://github.com/compressora/compressora"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:underline font-medium"

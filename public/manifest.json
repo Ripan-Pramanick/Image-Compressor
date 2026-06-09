@@ -1,6 +1,6 @@
 {
-      "name": "FileForge - File Processing Toolkit",
-        "short_name": "FileForge",
+      "name": "compressora - File Processing Toolkit",
+        "short_name": "compressora",
           "description": "Privacy-first file processing toolkit. Process files directly in your browser.",
             "start_url": "/",
               "display": "standalone",

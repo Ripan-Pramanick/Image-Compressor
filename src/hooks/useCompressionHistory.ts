@@ -9,7 +9,7 @@ const MAX_HISTORY_ITEMS = 100;
 
 export function useCompressionHistory() {
   const [history, setHistory] = useLocalStorage<ProcessingActivity[]>(
-    'fileforge-history',
+    'compressora-history',
     []
   );
 

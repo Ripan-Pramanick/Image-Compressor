@@ -3,8 +3,8 @@ import { generateMetadata } from '@/config/seo';
 import { Shield, Zap, Globe, Lock, Cpu, Code2 } from 'lucide-react';
 
 export const metadata: Metadata = generateMetadata({
-  title: 'About FileForge',
-  description: 'Learn about FileForge - the privacy-first file processing toolkit that runs entirely in your browser.',
+  title: 'About compressora',
+  description: 'Learn about compressora - the privacy-first file processing toolkit that runs entirely in your browser.',
   path: '/about',
 });
 
@@ -22,7 +22,7 @@ const features = [
   {
     icon: Globe,
     title: 'Works Offline',
-    description: 'Install as a PWA and use FileForge even without an internet connection.',
+    description: 'Install as a PWA and use compressora even without an internet connection.',
   },
   {
     icon: Lock,
@@ -47,10 +47,10 @@ export default function AboutPage() {
       {/* Hero */}
       <div className="text-center mb-16">
         <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-          About <span className="gradient-text">FileForge</span>
+          About <span className="gradient-text">compressora</span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          FileForge was born from the frustration of having to upload files to sketchy
+          compressora was born from the frustration of having to upload files to sketchy
           online tools just to compress an image or merge a PDF. We believe your files
           should never leave your device.
         </p>
@@ -83,7 +83,7 @@ export default function AboutPage() {
         </h2>
         <div className="prose dark:prose-invert max-w-none">
           <p className="text-gray-600 dark:text-gray-400">
-            FileForge is built on three core principles:
+            compressora is built on three core principles:
           </p>
           <ul className="space-y-2 text-gray-600 dark:text-gray-400">
             <li>

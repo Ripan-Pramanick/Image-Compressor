@@ -36,7 +36,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function FavoriteTools() {
   const [favorites, setFavorites] = useLocalStorage<FavoriteTool[]>(
-    'fileforge-favorites',
+    'compressora-favorites',
     []
   );
 

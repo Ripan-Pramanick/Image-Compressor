@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { tools } from '@/config/tools';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-      const baseUrl = 'https://fileforge.app';
+      const baseUrl = 'https://compressora.app';
 
       const staticRoutes = [
             {

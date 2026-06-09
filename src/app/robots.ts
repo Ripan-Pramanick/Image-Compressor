@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://fileforge.app/sitemap.xml',
+    sitemap: 'https://compressora.app/sitemap.xml',
   };
 }

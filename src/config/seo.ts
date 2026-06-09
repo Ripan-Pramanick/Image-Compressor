@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
-const SITE_URL = 'https://fileforge.app';
-const SITE_NAME = 'FileForge';
+const SITE_URL = 'https://compressora.app';
+const SITE_NAME = 'compressora';
 
 export function generateMetadata({
   title,

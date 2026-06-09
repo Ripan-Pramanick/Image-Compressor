@@ -11,7 +11,7 @@ import {
 
 export function useUserPreferences() {
   const [preferences, setPreferences] = useLocalStorage<UserPreferences>(
-    'fileforge-preferences',
+    'compressora-preferences',
     defaultPreferences
   );
 

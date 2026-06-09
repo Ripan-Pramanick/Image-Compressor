@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FileForge Icon Generator</title>
+    <title>compressora Icon Generator</title>
     <style>
         body { 
             display: flex; 
@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-    <h1>FileForge Icon Generator</h1>
+    <h1>compressora Icon Generator</h1>
     <canvas id="icon192" width="192" height="192"></canvas>
     <p>192×192 — Standard Icon</p>
     <canvas id="icon512" width="512" height="512"></canvas>

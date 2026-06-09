@@ -10,17 +10,17 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'FileForge - Privacy-First File Processing Toolkit',
-    template: '%s | FileForge',
+    default: 'compressora - Privacy-First File Processing Toolkit',
+    template: '%s | compressora',
   },
   description: 'Process images and PDFs directly in your browser. No upload to any server. Your files stay on your device.',
   keywords: ['file processing', 'image compression', 'pdf compression', 'privacy', 'browser tools'],
-  authors: [{ name: 'FileForge' }],
+  authors: [{ name: 'compressora' }],
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'FileForge',
+    title: 'compressora',
   },
 };
 
@@ -43,7 +43,7 @@ export default function RootLayout({
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'FileForge',
+    name: 'compressora',
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'Any',
     offers: {
@@ -64,8 +64,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
                                                                                                                                                                                                   try {
-                                                                                                                                                                                                                  if (localStorage.getItem('fileforge-preferences')) {
-                                                                                                                                                                                                                                    const prefs = JSON.parse(localStorage.getItem('fileforge-preferences'));
+                                                                                                                                                                                                                  if (localStorage.getItem('compressora-preferences')) {
+                                                                                                                                                                                                                                    const prefs = JSON.parse(localStorage.getItem('compressora-preferences'));
                                                                                                                                                                                                                                                       if (prefs.theme === 'dark' || (prefs.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                                                                                                                                                                                                                                                                           document.documentElement.classList.add('dark');
                                                                                                                                                                                                                                                                                             } else {

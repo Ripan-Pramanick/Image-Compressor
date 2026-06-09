@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fileforge-v1';
+const CACHE_NAME = 'compressora-v1';
 const urlsToCache = [
   '/',
     '/about',
