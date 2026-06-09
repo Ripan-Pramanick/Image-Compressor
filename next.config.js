@@ -47,14 +47,17 @@ const nextConfig = {
         fs: false,
         path: false,
         crypto: false,
+        canvas: false, // Canvas error fix korar jonne
       };
-      // Prefer the legacy, transpiled PDF.js build for client-side bundles
-      config.resolve = config.resolve || {};
-      config.resolve.alias = {
-        ...(config.resolve.alias || {}),
-        'pdfjs-dist': 'pdfjs-dist/legacy/build/pdf',
-      };
+      // Legacy alias-ta eখান theke remove kora hoyeche
     }
+    
+    // topLevelAwait support enable kora holo
+    config.experiments = { 
+      ...config.experiments, 
+      topLevelAwait: true 
+    };
+
     return config;
   },
 };
