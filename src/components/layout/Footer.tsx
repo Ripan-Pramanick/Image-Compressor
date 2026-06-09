@@ -1,7 +1,7 @@
-// Footer.tsx
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Linkedin } from "lucide-react";
 
 export function Footer() {
@@ -12,7 +12,14 @@ export function Footer() {
           
           {/* Brand Identity */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="inline-block mb-4">
+            <Link href="/" className="flex items-center gap-3 mb-4 group">
+              <Image 
+                src="/logo.png" 
+                alt="Compressora Logo" 
+                width={32} 
+                height={32} 
+                className="w-8 h-8 object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-300"
+              />
               <span className="font-extrabold text-2xl tracking-tight bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] bg-clip-text text-transparent">
                 Compressora
               </span>

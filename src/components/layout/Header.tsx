@@ -1,8 +1,8 @@
-// Header.tsx
 'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github } from 'lucide-react';
@@ -29,6 +29,19 @@ export function Header() {
           
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-3 group">
+            <motion.div
+              whileHover={{ rotate: -10, scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <Image 
+                src="/logo.png" 
+                alt="Compressora Logo" 
+                width={40} 
+                height={40} 
+                className="w-10 h-10 object-contain drop-shadow-md"
+                priority
+              />
+            </motion.div>
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
