@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
-const SITE_URL = 'https://compressora.app';
-const SITE_NAME = 'compressora';
+const SITE_URL = 'https://compressora.vercel.app/';
+const SITE_NAME = 'Compressora'; // টাইটেলের জন্য নাম আপডেট করা হয়েছে
 
 export function generateMetadata({
   title,
@@ -20,6 +20,12 @@ export function generateMetadata({
     title,
     description,
     metadataBase: new URL(SITE_URL),
+    // Favicon এখানে অ্যাড করা হলো
+    icons: {
+      icon: '/logo.png', 
+      shortcut: '/logo.png',
+      apple: '/logo.png',
+    },
     alternates: {
       canonical: url,
     },
