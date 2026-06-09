@@ -11,95 +11,95 @@ import { FavoriteTool } from '@/types/dashboard';
 import { Star, ExternalLink } from 'lucide-react';
 import {
   ImageIcon,
-    FileText,
-      Repeat,
-        Scissors,
-          Maximize2,
-            Crop,
-              FileDown,
-                Combine,
-                  FileUp,
-                    FileImage,
-                    } from 'lucide-react';
+  FileText,
+  Repeat,
+  Scissors,
+  Maximize2,
+  Crop,
+  FileDown,
+  Combine,
+  FileUp,
+  FileImage,
+} from 'lucide-react';
 
-                    const iconMap: Record<string, React.ReactNode> = {
-                      ImageIcon: <ImageIcon className="w-5 h-5" />,
-                        Repeat: <Repeat className="w-5 h-5" />,
-                          Maximize2: <Maximize2 className="w-5 h-5" />,
-                            Crop: <Crop className="w-5 h-5" />,
-                              FileDown: <FileDown className="w-5 h-5" />,
-                                Combine: <Combine className="w-5 h-5" />,
-                                  Scissors: <Scissors className="w-5 h-5" />,
-                                    FileUp: <FileUp className="w-5 h-5" />,
-                                      Image: <ImageIcon className="w-5 h-5" />,
-                                      };
+const iconMap: Record<string, React.ReactNode> = {
+  ImageIcon: <ImageIcon className="w-5 h-5" />,
+  Repeat: <Repeat className="w-5 h-5" />,
+  Maximize2: <Maximize2 className="w-5 h-5" />,
+  Crop: <Crop className="w-5 h-5" />,
+  FileDown: <FileDown className="w-5 h-5" />,
+  Combine: <Combine className="w-5 h-5" />,
+  Scissors: <Scissors className="w-5 h-5" />,
+  FileUp: <FileUp className="w-5 h-5" />,
+  Image: <ImageIcon className="w-5 h-5" />,
+};
 
-                                      export function FavoriteTools() {
-                                        const [favorites, setFavorites] = useLocalStorage<FavoriteTool[]>(
-                                            'fileforge-favorites',
-                                                []
-                                                  );
+export function FavoriteTools() {
+  const [favorites, setFavorites] = useLocalStorage<FavoriteTool[]>(
+    'fileforge-favorites',
+    []
+  );
 
-                                                    const favoriteTools = allTools
-                                                        .filter((tool) => favorites.some((f) => f.toolId === tool.id))
-                                                            .sort((a, b) => {
-                                                                  const aFav = favorites.find((f) => f.toolId === a.id);
-                                                                        const bFav = favorites.find((f) => f.toolId === b.id);
-                                                                              return (bFav?.useCount || 0) - (aFav?.useCount || 0);
-                                                                                  });
+  const favoriteTools = allTools
+    .filter((tool) => favorites.some((f) => f.toolId === tool.id))
+    .sort((a, b) => {
+      const aFav = favorites.find((f) => f.toolId === a.id);
+      const bFav = favorites.find((f) => f.toolId === b.id);
+      return (bFav?.useCount || 0) - (aFav?.useCount || 0);
+    });
 
-                                                                                    if (favoriteTools.length === 0) {
-                                                                                        return (
-                                                                                              <Card>
-                                                                                                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                                                                                                                <Star className="w-5 h-5" />
-                                                                                                                          Favorite Tools
-                                                                                                                                  </h3>
-                                                                                                                                          <p className="text-gray-500 dark:text-gray-400 text-center py-8">
-                                                                                                                                                    Your most used tools will appear here for quick access.
-                                                                                                                                                            </p>
-                                                                                                                                                                  </Card>
-                                                                                                                                                                      );
-                                                                                                                                                                        }
+  if (favoriteTools.length === 0) {
+    return (
+      <Card>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+          <Star className="w-5 h-5" />
+          Favorite Tools
+        </h3>
+        <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+          Your most used tools will appear here for quick access.
+        </p>
+      </Card>
+    );
+  }
 
-                                                                                                                                                                          return (
-                                                                                                                                                                              <Card>
-                                                                                                                                                                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                                                                                                                                                                                            <Star className="w-5 h-5" />
-                                                                                                                                                                                                    Favorite Tools
-                                                                                                                                                                                                          </h3>
-                                                                                                                                                                                                                <div className="space-y-2">
-                                                                                                                                                                                                                        {favoriteTools.slice(0, 5).map((tool, index) => {
-                                                                                                                                                                                                                                  const fav = favorites.find((f) => f.toolId === tool.id);
-                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                      return (
-                                                                                                                                                                                                                                                                  <motion.div
-                                                                                                                                                                                                                                                                                key={tool.id}
-                                                                                                                                                                                                                                                                                              initial={{ opacity: 0, x: -20 }}
-                                                                                                                                                                                                                                                                                                            animate={{ opacity: 1, x: 0 }}
-                                                                                                                                                                                                                                                                                                                          transition={{ delay: index * 0.05 }}
-                                                                                                                                                                                                                                                                                                                                      >
-                                                                                                                                                                                                                                                                                                                                                    <Link
-                                                                                                                                                                                                                                                                                                                                                                    href={tool.route}
-                                                                                                                                                                                                                                                                                                                                                                                    className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors group"
-                                                                                                                                                                                                                                                                                                                                                                                                  >
-                                                                                                                                                                                                                                                                                                                                                                                                                  <div className="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center">
-                                                                                                                                                                                                                                                                                                                                                                                                                                    {iconMap[tool.icon]}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div className="flex-1 min-w-0">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {tool.name}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Used {fav?.useCount || 0} time{(fav?.useCount || 0) !== 1 ? 's' : ''}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-primary-500 transition-colors" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </Link>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </motion.div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                })}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </Card>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
+  return (
+    <Card>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+        <Star className="w-5 h-5" />
+        Favorite Tools
+      </h3>
+      <div className="space-y-2">
+        {favoriteTools.slice(0, 5).map((tool, index) => {
+          const fav = favorites.find((f) => f.toolId === tool.id);
+
+          return (
+            <motion.div
+              key={tool.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <Link
+                href={tool.route}
+                className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors group"
+              >
+                <div className="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center">
+                  {iconMap[tool.icon]}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                    {tool.name}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Used {fav?.useCount || 0} time{(fav?.useCount || 0) !== 1 ? 's' : ''}
+                  </p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-primary-500 transition-colors" />
+              </Link>
+            </motion.div>
+          );
+        })}
+      </div>
+    </Card>
+  );
+}

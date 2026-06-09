@@ -10,59 +10,59 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-      default: 'FileForge - Privacy-First File Processing Toolkit',
-          template: '%s | FileForge',
-            },
-              description: 'Process images and PDFs directly in your browser. No upload to any server. Your files stay on your device.',
-                keywords: ['file processing', 'image compression', 'pdf compression', 'privacy', 'browser tools'],
-                  authors: [{ name: 'FileForge' }],
-                    manifest: '/manifest.json',
-                      appleWebApp: {
-                          capable: true,
-                              statusBarStyle: 'default',
-                                  title: 'FileForge',
-                                    },
-                                    };
+    default: 'FileForge - Privacy-First File Processing Toolkit',
+    template: '%s | FileForge',
+  },
+  description: 'Process images and PDFs directly in your browser. No upload to any server. Your files stay on your device.',
+  keywords: ['file processing', 'image compression', 'pdf compression', 'privacy', 'browser tools'],
+  authors: [{ name: 'FileForge' }],
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'FileForge',
+  },
+};
 
-                                    export const viewport: Viewport = {
-                                      width: 'device-width',
-                                        initialScale: 1,
-                                          maximumScale: 1,
-                                            userScalable: false,
-                                              themeColor: [
-                                                  { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-                                                      { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
-                                                        ],
-                                                        };
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+  ],
+};
 
-                                                        export default function RootLayout({
-                                                          children,
-                                                          }: {
-                                                            children: React.ReactNode;
-                                                            }) {
-                                                              const schema = {
-                                                                  '@context': 'https://schema.org',
-                                                                      '@type': 'WebApplication',
-                                                                          name: 'FileForge',
-                                                                              applicationCategory: 'MultimediaApplication',
-                                                                                  operatingSystem: 'Any',
-                                                                                      offers: {
-                                                                                            '@type': 'Offer',
-                                                                                                  price: '0',
-                                                                                                        priceCurrency: 'USD',
-                                                                                                            },
-                                                                                                                description: 'Privacy-first file processing toolkit. All processing happens locally in your browser.',
-                                                                                                                  };
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'FileForge',
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    description: 'Privacy-first file processing toolkit. All processing happens locally in your browser.',
+  };
 
-                                                                                                                    return (
-                                                                                                                        <html lang="en" suppressHydrationWarning>
-                                                                                                                              <head>
-                                                                                                                                      <JsonLd data={schema} />
-                                                                                                                                              <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-                                                                                                                                                      <link rel="alternate icon" href="/favicon.ico" />
-                                                                                                                                                              <script
-                                                                                                                                                                        dangerouslySetInnerHTML={{
-                                                                                                                                                                                    __html: `
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <JsonLd data={schema} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="alternate icon" href="/favicon.ico" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
                                                                                                                                                                                                   try {
                                                                                                                                                                                                                   if (localStorage.getItem('fileforge-preferences')) {
                                                                                                                                                                                                                                     const prefs = JSON.parse(localStorage.getItem('fileforge-preferences'));
@@ -76,19 +76,19 @@ export const metadata: Metadata = {
                                                                                                                                                                                                                                                                                                                                                                                     }
                                                                                                                                                                                                                                                                                                                                                                                                   } catch (e) {}
                                                                                                                                                                                                                                                                                                                                                                                                               `,
-                                                                                                                                                                                                                                                                                                                                                                                                                        }}
-                                                                                                                                                                                                                                                                                                                                                                                                                                />
-                                                                                                                                                                                                                                                                                                                                                                                                                                      </head>
-                                                                                                                                                                                                                                                                                                                                                                                                                                            <body className={`${inter.className} min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900`}>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div className="flex flex-col min-h-screen">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              <Header />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <main className="flex-1">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {children}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </main>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <Footer />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <ToasterClient />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+          }}
+        />
+      </head>
+      <body className={`${inter.className} min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900`}>
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
+        <ToasterClient />
+      </body>
+    </html>
+  );
+}

@@ -1,4 +1,4 @@
-// File: /workspaces/Image-Compressor/src/app/image-compressor/page.tsx
+// File: C:\Users\RIPAN\OneDrive\Desktop\IMAGE COMPRESSUR\Image-Compressor\src\app\image-compressor\page.tsx
 import * as entry from '../../../../src/app/image-compressor/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

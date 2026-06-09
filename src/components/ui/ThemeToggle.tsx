@@ -21,8 +21,8 @@ export function ThemeToggle() {
   // Only compute isDark after hydration to avoid server/client mismatch
   const isDark = isHydrated
     ? preferences.theme === 'dark' ||
-      (preferences.theme === 'system' &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    (preferences.theme === 'system' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches)
     : false;
 
   return (

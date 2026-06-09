@@ -9,93 +9,93 @@ import { Button } from './Button';
 
 interface DropZoneProps {
   onFilesSelected: (files: File[]) => void;
-    acceptedTypes: Record<string, string[]>;
-      maxFiles?: number;
-        maxSize?: number;
-          className?: string;
-            disabled?: boolean;
-            }
+  acceptedTypes: Record<string, string[]>;
+  maxFiles?: number;
+  maxSize?: number;
+  className?: string;
+  disabled?: boolean;
+}
 
-            export function DropZone({
-              onFilesSelected,
-                acceptedTypes,
-                  maxFiles = 10,
-                    maxSize = 50 * 1024 * 1024,
-                      className,
-                        disabled = false,
-                        }: DropZoneProps) {
-                          const [isDragActive, setIsDragActive] = useState(false);
+export function DropZone({
+  onFilesSelected,
+  acceptedTypes,
+  maxFiles = 10,
+  maxSize = 50 * 1024 * 1024,
+  className,
+  disabled = false,
+}: DropZoneProps) {
+  const [isDragActive, setIsDragActive] = useState(false);
 
-                            const onDrop = useCallback(
-                                (acceptedFiles: File[]) => {
-                                      onFilesSelected(acceptedFiles);
-                                            setIsDragActive(false);
-                                                },
-                                                    [onFilesSelected]
-                                                      );
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      onFilesSelected(acceptedFiles);
+      setIsDragActive(false);
+    },
+    [onFilesSelected]
+  );
 
-                                                        const { getRootProps, getInputProps, isDragReject } = useDropzone({
-                                                            onDrop,
-                                                                accept: acceptedTypes,
-                                                                    maxFiles,
-                                                                        maxSize,
-                                                                            disabled,
-                                                                                onDragEnter: () => setIsDragActive(true),
-                                                                                    onDragLeave: () => setIsDragActive(false),
-                                                                                      });
+  const { getRootProps, getInputProps, isDragReject } = useDropzone({
+    onDrop,
+    accept: acceptedTypes,
+    maxFiles,
+    maxSize,
+    disabled,
+    onDragEnter: () => setIsDragActive(true),
+    onDragLeave: () => setIsDragActive(false),
+  });
 
-                                                                                        return (
-                                                                                            <div
-                                                                                                  {...getRootProps()}
-                                                                                                        className={cn(
-                                                                                                                'relative border-2 border-dashed rounded-2xl p-8 transition-all duration-200 cursor-pointer',
-                                                                                                                        isDragActive
-                                                                                                                                  ? 'border-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                                                                                                                                            : 'border-gray-300 dark:border-gray-600 hover:border-primary-300',
-                                                                                                                                                    isDragReject && 'border-red-400 bg-red-50 dark:bg-red-900/20',
-                                                                                                                                                            disabled && 'opacity-50 cursor-not-allowed',
-                                                                                                                                                                    className
-                                                                                                                                                                          )}
-                                                                                                                                                                              >
-                                                                                                                                                                                    <input {...getInputProps()} />
-                                                                                                                                                                                          <div className="flex flex-col items-center gap-4">
-                                                                                                                                                                                                  <motion.div
-                                                                                                                                                                                                            animate={isDragActive ? { scale: 1.1 } : { scale: 1 }}
-                                                                                                                                                                                                                      transition={{ type: 'spring', stiffness: 300 }}
-                                                                                                                                                                                                                              >
-                                                                                                                                                                                                                                        <Upload
-                                                                                                                                                                                                                                                    className={cn(
-                                                                                                                                                                                                                                                                  'w-12 h-12',
-                                                                                                                                                                                                                                                                                isDragActive
-                                                                                                                                                                                                                                                                                                ? 'text-primary-500'
-                                                                                                                                                                                                                                                                                                                : 'text-gray-400 dark:text-gray-500'
-                                                                                                                                                                                                                                                                                                                            )}
-                                                                                                                                                                                                                                                                                                                                      />
-                                                                                                                                                                                                                                                                                                                                              </motion.div>
-                                                                                                                                                                                                                                                                                                                                                      
-                                                                                                                                                                                                                                                                                                                                                              <div className="text-center">
-                                                                                                                                                                                                                                                                                                                                                                        <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
-                                                                                                                                                                                                                                                                                                                                                                                    {isDragActive
-                                                                                                                                                                                                                                                                                                                                                                                                  ? 'Drop files here'
-                                                                                                                                                                                                                                                                                                                                                                                                                : 'Drag & drop files or click to browse'}
-                                                                                                                                                                                                                                                                                                                                                                                                                          </p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                {Object.values(acceptedTypes)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              .flat()
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .map(type => type.split('/')[1]?.toUpperCase())
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          .join(', ')}{' '}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      files up to {formatBytes(maxSize)}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+  return (
+    <div
+      {...getRootProps()}
+      className={cn(
+        'relative border-2 border-dashed rounded-2xl p-8 transition-all duration-200 cursor-pointer',
+        isDragActive
+          ? 'border-primary-400 bg-primary-50 dark:bg-primary-900/20'
+          : 'border-gray-300 dark:border-gray-600 hover:border-primary-300',
+        isDragReject && 'border-red-400 bg-red-50 dark:bg-red-900/20',
+        disabled && 'opacity-50 cursor-not-allowed',
+        className
+      )}
+    >
+      <input {...getInputProps()} />
+      <div className="flex flex-col items-center gap-4">
+        <motion.div
+          animate={isDragActive ? { scale: 1.1 } : { scale: 1 }}
+          transition={{ type: 'spring', stiffness: 300 }}
+        >
+          <Upload
+            className={cn(
+              'w-12 h-12',
+              isDragActive
+                ? 'text-primary-500'
+                : 'text-gray-400 dark:text-gray-500'
+            )}
+          />
+        </motion.div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    function formatBytes(bytes: number): string {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      if (bytes === 0) return '0 Bytes';
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        const k = 1024;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            const i = Math.floor(Math.log(bytes) / Math.log(k));
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              return Math.round((bytes / Math.pow(k, i))) + ' ' + sizes[i];
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              }
+        <div className="text-center">
+          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">
+            {isDragActive
+              ? 'Drop files here'
+              : 'Drag & drop files or click to browse'}
+          </p>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            {Object.values(acceptedTypes)
+              .flat()
+              .map(type => type.split('/')[1]?.toUpperCase())
+              .join(', ')}{' '}
+            files up to {formatBytes(maxSize)}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return Math.round((bytes / Math.pow(k, i))) + ' ' + sizes[i];
+}

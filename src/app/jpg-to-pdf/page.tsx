@@ -14,98 +14,98 @@ import { imagesToPDF } from '@/lib/pdf-processing';
 import { downloadBlob } from '@/lib/utils';
 import { FileUp, Download } from 'lucide-react';
 
-      export default function JpgToPdfPage() {
-        const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
-          const { addToHistory } = useCompressionHistory();
-            const { showSuccess, showError } = useToast();
-              const {
-                  files,
-                      addFiles,
-                          removeFile,
-                              clearFiles,
-                                  processFiles,
-                                      isProcessing,
-                                        } = useFileProcessing({
-                                            maxFiles: 20,
-                                                maxSize: 50 * 1024 * 1024,
-                                                    acceptedTypes: ['image/jpeg', 'image/png'],
-                                                      });
+export default function JpgToPdfPage() {
+  const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
+  const { addToHistory } = useCompressionHistory();
+  const { showSuccess, showError } = useToast();
+  const {
+    files,
+    addFiles,
+    removeFile,
+    clearFiles,
+    processFiles,
+    isProcessing,
+  } = useFileProcessing({
+    maxFiles: 20,
+    maxSize: 50 * 1024 * 1024,
+    acceptedTypes: ['image/jpeg', 'image/png'],
+  });
 
-                                                        const handleConvert = useCallback(async () => {
-                                                            try {
-                                                                  const pdfData = await imagesToPDF(files.map((f) => f.file));
-                                                                              const blob = new Blob([new Uint8Array(pdfData)], { type: 'application/pdf' });
+  const handleConvert = useCallback(async () => {
+    try {
+      const pdfData = await imagesToPDF(files.map((f) => f.file));
+      const blob = new Blob([new Uint8Array(pdfData)], { type: 'application/pdf' });
 
-                                                                                    addToHistory({
-                                                                                            toolId: 'jpg-to-pdf',
-                                                                                                    toolName: 'JPG to PDF',
-                                                                                                            filesProcessed: files.length,
-                                                                                                                    spaceSaved: 0,
-                                                                                                                            timestamp: Date.now(),
-                                                                                                                                  });
+      addToHistory({
+        toolId: 'jpg-to-pdf',
+        toolName: 'JPG to PDF',
+        filesProcessed: files.length,
+        spaceSaved: 0,
+        timestamp: Date.now(),
+      });
 
-                                                                                                                                        showSuccess(`Converted ${files.length} image(s) to PDF`);
-                                                                                                                                            } catch (error) {
-                                                                                                                                                  showError('Failed to convert images to PDF');
-                                                                                                                                                      }
-                                                                                                                                                        }, [files, addToHistory, showSuccess, showError]);
+      showSuccess(`Converted ${files.length} image(s) to PDF`);
+    } catch (error) {
+      showError('Failed to convert images to PDF');
+    }
+  }, [files, addToHistory, showSuccess, showError]);
 
-                                                                                                                                                          const handleDownload = useCallback(() => {
-                                                                                                                                                              if (pdfBlob) {
-                                                                                                                                                                    downloadBlob(pdfBlob, 'converted_images.pdf');
-                                                                                                                                                                          showSuccess('PDF downloaded');
-                                                                                                                                                                              }
-                                                                                                                                                                                }, [pdfBlob, showSuccess]);
+  const handleDownload = useCallback(() => {
+    if (pdfBlob) {
+      downloadBlob(pdfBlob, 'converted_images.pdf');
+      showSuccess('PDF downloaded');
+    }
+  }, [pdfBlob, showSuccess]);
 
-                                                                                                                                                                                  return (
-                                                                                                                                                                                      <ToolLayout
-                                                                                                                                                                                            title="JPG to PDF"
-                                                                                                                                                                                                  description="Convert images to a PDF document. Supports JPG and PNG formats."
-                                                                                                                                                                                                      >
-                                                                                                                                                                                                            <div className="space-y-6">
-                                                                                                                                                                                                                    <DropZone
-                                                                                                                                                                                                                              onFilesSelected={addFiles}
-                                                                                                                                                                                                                                        acceptedTypes={{
-                                                                                                                                                                                                                                                    'image/jpeg': ['.jpg', '.jpeg'],
-                                                                                                                                                                                                                                                                'image/png': ['.png'],
-                                                                                                                                                                                                                                                                          }}
-                                                                                                                                                                                                                                                                                    maxFiles={20}
-                                                                                                                                                                                                                                                                                            />
+  return (
+    <ToolLayout
+      title="JPG to PDF"
+      description="Convert images to a PDF document. Supports JPG and PNG formats."
+    >
+      <div className="space-y-6">
+        <DropZone
+          onFilesSelected={addFiles}
+          acceptedTypes={{
+            'image/jpeg': ['.jpg', '.jpeg'],
+            'image/png': ['.png'],
+          }}
+          maxFiles={20}
+        />
 
-                                                                                                                                                                                                                                                                                                    <FileList files={files} onRemove={removeFile} onClear={clearFiles} />
+        <FileList files={files} onRemove={removeFile} onClear={clearFiles} />
 
-                                                                                                                                                                                                                                                                                                            {isProcessing && <ProgressBar indeterminate label="Creating PDF..." />}
+        {isProcessing && <ProgressBar indeterminate label="Creating PDF..." />}
 
-                                                                                                                                                                                                                                                                                                                    {pdfBlob && (
-                                                                                                                                                                                                                                                                                                                              <Card className="bg-green-50 dark:bg-green-900/20">
-                                                                                                                                                                                                                                                                                                                                          <p className="text-green-700 dark:text-green-300 font-medium">
-                                                                                                                                                                                                                                                                                                                                                        PDF created successfully! ({(pdfBlob.size / (1024 * 1024)).toFixed(2)} MB)
-                                                                                                                                                                                                                                                                                                                                                                    </p>
-                                                                                                                                                                                                                                                                                                                                                                              </Card>
-                                                                                                                                                                                                                                                                                                                                                                                      )}
+        {pdfBlob && (
+          <Card className="bg-green-50 dark:bg-green-900/20">
+            <p className="text-green-700 dark:text-green-300 font-medium">
+              PDF created successfully! ({(pdfBlob.size / (1024 * 1024)).toFixed(2)} MB)
+            </p>
+          </Card>
+        )}
 
-                                                                                                                                                                                                                                                                                                                                                                                              {files.length > 0 && (
-                                                                                                                                                                                                                                                                                                                                                                                                        <div className="flex gap-3 justify-end">
-                                                                                                                                                                                                                                                                                                                                                                                                                    <Button
-                                                                                                                                                                                                                                                                                                                                                                                                                                  onClick={handleConvert}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                disabled={isProcessing}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              loading={isProcessing}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            icon={<FileUp className="w-5 h-5" />}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        >
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Convert to PDF
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </Button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {pdfBlob && (
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <Button
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            variant="secondary"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            onClick={handleDownload}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            icon={<Download className="w-5 h-5" />}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          >
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Download PDF
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </Button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    )}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      )}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ToolLayout>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  }
+        {files.length > 0 && (
+          <div className="flex gap-3 justify-end">
+            <Button
+              onClick={handleConvert}
+              disabled={isProcessing}
+              loading={isProcessing}
+              icon={<FileUp className="w-5 h-5" />}
+            >
+              Convert to PDF
+            </Button>
+            {pdfBlob && (
+              <Button
+                variant="secondary"
+                onClick={handleDownload}
+                icon={<Download className="w-5 h-5" />}
+              >
+                Download PDF
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
+    </ToolLayout>
+  );
+}

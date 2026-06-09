@@ -1,19 +1,7 @@
 {
-  "/page": "app/page.js",
-  "/robots.txt/route": "app/robots.txt/route.js",
-  "/sitemap.xml/route": "app/sitemap.xml/route.js",
-  "/api/compress-pdf/route": "app/api/compress-pdf/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/crop-image/page": "app/crop-image/page.js",
   "/image-compressor/page": "app/image-compressor/page.js",
   "/image-converter/page": "app/image-converter/page.js",
-  "/jpg-to-pdf/page": "app/jpg-to-pdf/page.js",
-  "/merge-pdf/page": "app/merge-pdf/page.js",
-  "/pdf-compressor/page": "app/pdf-compressor/page.js",
-  "/pdf-to-jpg/page": "app/pdf-to-jpg/page.js",
-  "/resize-image/page": "app/resize-image/page.js",
-  "/split-pdf/page": "app/split-pdf/page.js",
   "/privacy/page": "app/privacy/page.js",
-  "/webp-converter/page": "app/webp-converter/page.js",
+  "/page": "app/page.js",
   "/about/page": "app/about/page.js"
 }

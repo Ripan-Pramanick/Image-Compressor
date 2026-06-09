@@ -4,62 +4,62 @@ import { useState, useEffect, useCallback } from 'react';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
-    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
+export function usePWA() {
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
+  const [isInstallable, setIsInstallable] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    // Check if app is already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstalled(true);
     }
 
-    export function usePWA() {
-      const [deferredPrompt, setDeferredPrompt] =
-          useState<BeforeInstallPromptEvent | null>(null);
-            const [isInstallable, setIsInstallable] = useState(false);
-              const [isInstalled, setIsInstalled] = useState(false);
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+      setIsInstallable(true);
+    };
 
-                useEffect(() => {
-                    // Check if app is already installed
-                        if (window.matchMedia('(display-mode: standalone)').matches) {
-                              setIsInstalled(true);
-                                  }
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setIsInstallable(false);
+      setDeferredPrompt(null);
+    };
 
-                                      const handleBeforeInstallPrompt = (e: Event) => {
-                                            e.preventDefault();
-                                                  setDeferredPrompt(e as BeforeInstallPromptEvent);
-                                                        setIsInstallable(true);
-                                                            };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
 
-                                                                const handleAppInstalled = () => {
-                                                                      setIsInstalled(true);
-                                                                            setIsInstallable(false);
-                                                                                  setDeferredPrompt(null);
-                                                                                      };
+    return () => {
+      window.removeEventListener(
+        'beforeinstallprompt',
+        handleBeforeInstallPrompt
+      );
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
 
-                                                                                          window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-                                                                                              window.addEventListener('appinstalled', handleAppInstalled);
+  const install = useCallback(async () => {
+    if (!deferredPrompt) return;
 
-                                                                                                  return () => {
-                                                                                                        window.removeEventListener(
-                                                                                                                'beforeinstallprompt',
-                                                                                                                        handleBeforeInstallPrompt
-                                                                                                                              );
-                                                                                                                                    window.removeEventListener('appinstalled', handleAppInstalled);
-                                                                                                                                        };
-                                                                                                                                          }, []);
+    await deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
 
-                                                                                                                                            const install = useCallback(async () => {
-                                                                                                                                                if (!deferredPrompt) return;
+    if (outcome === 'accepted') {
+      setIsInstalled(true);
+    }
 
-                                                                                                                                                    await deferredPrompt.prompt();
-                                                                                                                                                        const { outcome } = await deferredPrompt.userChoice;
+    setDeferredPrompt(null);
+    setIsInstallable(false);
+  }, [deferredPrompt]);
 
-                                                                                                                                                            if (outcome === 'accepted') {
-                                                                                                                                                                  setIsInstalled(true);
-                                                                                                                                                                      }
-
-                                                                                                                                                                          setDeferredPrompt(null);
-                                                                                                                                                                              setIsInstallable(false);
-                                                                                                                                                                                }, [deferredPrompt]);
-
-                                                                                                                                                                                  return {
-                                                                                                                                                                                      isInstallable,
-                                                                                                                                                                                          isInstalled,
-                                                                                                                                                                                              install,
-                                                                                                                                                                                                };
-                                                                                                                                                                                                }
+  return {
+    isInstallable,
+    isInstalled,
+    install,
+  };
+}

@@ -8,60 +8,60 @@ import { formatBytes } from '@/lib/utils';
 import { Clock, FileText, HardDrive } from 'lucide-react';
 
 interface RecentActivityProps {
-  activities: ProcessingActivity[];
-  }
+        activities: ProcessingActivity[];
+}
 
-  export function RecentActivity({ activities }: RecentActivityProps) {
-    if (activities.length === 0) {
+export function RecentActivity({ activities }: RecentActivityProps) {
+        if (activities.length === 0) {
+                return (
+                        <Card>
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <Clock className="w-5 h-5" />
+                                        Recent Activity
+                                </h3>
+                                <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+                                        No recent activity. Start processing files to see your history here.
+                                </p>
+                        </Card>
+                );
+        }
+
         return (
-              <Card>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <Card>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                                 <Clock className="w-5 h-5" />
-                                          Recent Activity
-                                                  </h3>
-                                                          <p className="text-gray-500 dark:text-gray-400 text-center py-8">
-                                                                    No recent activity. Start processing files to see your history here.
-                                                                            </p>
-                                                                                  </Card>
-                                                                                      );
-                                                                                        }
-
-                                                                                          return (
-                                                                                              <Card>
-                                                                                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                                                                                                            <Clock className="w-5 h-5" />
-                                                                                                                    Recent Activity
-                                                                                                                          </h3>
-                                                                                                                                <div className="space-y-3">
-                                                                                                                                        {activities.map((activity, index) => (
-                                                                                                                                                  <motion.div
-                                                                                                                                                              key={activity.id}
-                                                                                                                                                                          initial={{ opacity: 0, x: -20 }}
-                                                                                                                                                                                      animate={{ opacity: 1, x: 0 }}
-                                                                                                                                                                                                  transition={{ delay: index * 0.1 }}
-                                                                                                                                                                                                              className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl"
-                                                                                                                                                                                                                        >
-                                                                                                                                                                                                                                    <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                                                                                                                                                                                                                  <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                          <div className="flex-1 min-w-0">
-                                                                                                                                                                                                                                                                                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                                                                                                                                                                                                                                                                                                        {activity.toolName}
-                                                                                                                                                                                                                                                                                                                      </p>
-                                                                                                                                                                                                                                                                                                                                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                                                                                                                                                                                                                                                                                                                    {activity.filesProcessed} file
-                                                                                                                                                                                                                                                                                                                                                                    {activity.filesProcessed !== 1 ? 's' : ''} processed
-                                                                                                                                                                                                                                                                                                                                                                                  </p>
-                                                                                                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                                                                                                                          <div className="text-right flex-shrink-0">
-                                                                                                                                                                                                                                                                                                                                                                                                                        <p className="text-sm font-medium text-green-600 dark:text-green-400">
-                                                                                                                                                                                                                                                                                                                                                                                                                                        {formatBytes(activity.spaceSaved)}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      </p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <p className="text-xs text-gray-400">saved</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </motion.div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ))}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </Card>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              }
+                                Recent Activity
+                        </h3>
+                        <div className="space-y-3">
+                                {activities.map((activity, index) => (
+                                        <motion.div
+                                                key={activity.id}
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: index * 0.1 }}
+                                                className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl"
+                                        >
+                                                <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                                        <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                                                {activity.toolName}
+                                                        </p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                                {activity.filesProcessed} file
+                                                                {activity.filesProcessed !== 1 ? 's' : ''} processed
+                                                        </p>
+                                                </div>
+                                                <div className="text-right flex-shrink-0">
+                                                        <p className="text-sm font-medium text-green-600 dark:text-green-400">
+                                                                {formatBytes(activity.spaceSaved)}
+                                                        </p>
+                                                        <p className="text-xs text-gray-400">saved</p>
+                                                </div>
+                                        </motion.div>
+                                ))}
+                        </div>
+                </Card>
+        );
+}

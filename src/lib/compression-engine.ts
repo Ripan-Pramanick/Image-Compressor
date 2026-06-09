@@ -4,108 +4,108 @@ import { compressImage, convertImage, resizeImage } from './image-processing';
 import { calculateCompressionRatio, generateId } from './utils';
 
 export class CompressionEngine {
-  private workers: Worker[] = [];
+    private workers: Worker[] = [];
     private maxWorkers: number;
 
-      constructor(maxWorkers = navigator.hardwareConcurrency || 4) {
-          this.maxWorkers = maxWorkers;
-            }
+    constructor(maxWorkers = navigator.hardwareConcurrency || 4) {
+        this.maxWorkers = maxWorkers;
+    }
 
-              async processFile(
-                  file: FileWithMetadata,
-                      options: CompressionOptions,
-                          onProgress?: (progress: number) => void
-                            ): Promise<FileWithMetadata> {
-                                file.status = 'processing';
-                                    file.progress = 0;
+    async processFile(
+        file: FileWithMetadata,
+        options: CompressionOptions,
+        onProgress?: (progress: number) => void
+    ): Promise<FileWithMetadata> {
+        file.status = 'processing';
+        file.progress = 0;
 
-                                        try {
-                                              const compressedFile = await compressImage(
-                                                      file.file,
-                                                              options,
-                                                                      (progress) => {
-                                                                                file.progress = progress;
-                                                                                          onProgress?.(progress);
-                                                                                                  }
-                                                                                                        );
+        try {
+            const compressedFile = await compressImage(
+                file.file,
+                options,
+                (progress) => {
+                    file.progress = progress;
+                    onProgress?.(progress);
+                }
+            );
 
-                                                                                                              file.processedFile = new Blob([compressedFile], { type: compressedFile.type });
-                                                                                                                    file.processedSize = compressedFile.size;
-                                                                                                                          file.status = 'completed';
-                                                                                                                                file.progress = 100;
-                                                                                                                                    } catch (error) {
-                                                                                                                                          file.status = 'error';
-                                                                                                                                                file.error = error instanceof Error ? error.message : 'Processing failed';
-                                                                                                                                                      throw error;
-                                                                                                                                                          }
+            file.processedFile = new Blob([compressedFile], { type: compressedFile.type });
+            file.processedSize = compressedFile.size;
+            file.status = 'completed';
+            file.progress = 100;
+        } catch (error) {
+            file.status = 'error';
+            file.error = error instanceof Error ? error.message : 'Processing failed';
+            throw error;
+        }
 
-                                                                                                                                                              return file;
-                                                                                                                                                                }
+        return file;
+    }
 
-                                                                                                                                                                  async processBatch(
-                                                                                                                                                                      files: FileWithMetadata[],
-                                                                                                                                                                          options: CompressionOptions,
-                                                                                                                                                                              onProgress?: (fileIndex: number, progress: number) => void
-                                                                                                                                                                                ): Promise<FileWithMetadata[]> {
-                                                                                                                                                                                    const results: FileWithMetadata[] = [];
-                                                                                                                                                                                        
-                                                                                                                                                                                            for (let i = 0; i < files.length; i++) {
-                                                                                                                                                                                                  const result = await this.processFile(files[i], options, (progress) => {
-                                                                                                                                                                                                          onProgress?.(i, progress);
-                                                                                                                                                                                                                });
-                                                                                                                                                                                                                      results.push(result);
-                                                                                                                                                                                                                          }
+    async processBatch(
+        files: FileWithMetadata[],
+        options: CompressionOptions,
+        onProgress?: (fileIndex: number, progress: number) => void
+    ): Promise<FileWithMetadata[]> {
+        const results: FileWithMetadata[] = [];
 
-                                                                                                                                                                                                                              return results;
-                                                                                                                                                                                                                                }
+        for (let i = 0; i < files.length; i++) {
+            const result = await this.processFile(files[i], options, (progress) => {
+                onProgress?.(i, progress);
+            });
+            results.push(result);
+        }
 
-                                                                                                                                                                                                                                  getProcessingStats(files: FileWithMetadata[]): ProcessingStats {
-                                                                                                                                                                                                                                      const totalOriginal = files.reduce((sum, f) => sum + f.size, 0);
-                                                                                                                                                                                                                                          const totalProcessed = files.reduce(
-                                                                                                                                                                                                                                                (sum, f) => sum + (f.processedSize || 0),
-                                                                                                                                                                                                                                                      0
-                                                                                                                                                                                                                                                          );
+        return results;
+    }
 
-                                                                                                                                                                                                                                                              return {
-                                                                                                                                                                                                                                                                    toolId: 'compression',
-                                                                                                                                                                                                                                                                          timestamp: Date.now(),
-                                                                                                                                                                                                                                                                                fileCount: files.length,
-                                                                                                                                                                                                                                                                                      originalSize: totalOriginal,
-                                                                                                                                                                                                                                                                                            processedSize: totalProcessed,
-                                                                                                                                                                                                                                                                                                  duration: 0,
-                                                                                                                                                                                                                                                                                                      };
-                                                                                                                                                                                                                                                                                                        }
+    getProcessingStats(files: FileWithMetadata[]): ProcessingStats {
+        const totalOriginal = files.reduce((sum, f) => sum + f.size, 0);
+        const totalProcessed = files.reduce(
+            (sum, f) => sum + (f.processedSize || 0),
+            0
+        );
 
-                                                                                                                                                                                                                                                                                                          destroy(): void {
-                                                                                                                                                                                                                                                                                                              this.workers.forEach(worker => worker.terminate());
-                                                                                                                                                                                                                                                                                                                  this.workers = [];
-                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                    }
+        return {
+            toolId: 'compression',
+            timestamp: Date.now(),
+            fileCount: files.length,
+            originalSize: totalOriginal,
+            processedSize: totalProcessed,
+            duration: 0,
+        };
+    }
 
-                                                                                                                                                                                                                                                                                                                    export function createCompressionPresets(): Record<string, CompressionOptions> {
-                                                                                                                                                                                                                                                                                                                      return {
-                                                                                                                                                                                                                                                                                                                          extreme: {
-                                                                                                                                                                                                                                                                                                                                quality: 30,
-                                                                                                                                                                                                                                                                                                                                      maxWidth: 1280,
-                                                                                                                                                                                                                                                                                                                                            maxHeight: 720,
-                                                                                                                                                                                                                                                                                                                                                },
-                                                                                                                                                                                                                                                                                                                                                    high: {
-                                                                                                                                                                                                                                                                                                                                                          quality: 50,
-                                                                                                                                                                                                                                                                                                                                                                maxWidth: 1920,
-                                                                                                                                                                                                                                                                                                                                                                      maxHeight: 1080,
-                                                                                                                                                                                                                                                                                                                                                                          },
-                                                                                                                                                                                                                                                                                                                                                                              medium: {
-                                                                                                                                                                                                                                                                                                                                                                                    quality: 70,
-                                                                                                                                                                                                                                                                                                                                                                                          maxWidth: 2560,
-                                                                                                                                                                                                                                                                                                                                                                                                maxHeight: 1440,
-                                                                                                                                                                                                                                                                                                                                                                                                    },
-                                                                                                                                                                                                                                                                                                                                                                                                        low: {
-                                                                                                                                                                                                                                                                                                                                                                                                              quality: 85,
-                                                                                                                                                                                                                                                                                                                                                                                                                    maxWidth: 3840,
-                                                                                                                                                                                                                                                                                                                                                                                                                          maxHeight: 2160,
-                                                                                                                                                                                                                                                                                                                                                                                                                              },
-                                                                                                                                                                                                                                                                                                                                                                                                                                  lossless: {
-                                                                                                                                                                                                                                                                                                                                                                                                                                        quality: 100,
-                                                                                                                                                                                                                                                                                                                                                                                                                                            },
-                                                                                                                                                                                                                                                                                                                                                                                                                                              };
-                                                                                                                                                                                                                                                                                                                                                                                                                                              }
+    destroy(): void {
+        this.workers.forEach(worker => worker.terminate());
+        this.workers = [];
+    }
+}
+
+export function createCompressionPresets(): Record<string, CompressionOptions> {
+    return {
+        extreme: {
+            quality: 30,
+            maxWidth: 1280,
+            maxHeight: 720,
+        },
+        high: {
+            quality: 50,
+            maxWidth: 1920,
+            maxHeight: 1080,
+        },
+        medium: {
+            quality: 70,
+            maxWidth: 2560,
+            maxHeight: 1440,
+        },
+        low: {
+            quality: 85,
+            maxWidth: 3840,
+            maxHeight: 2160,
+        },
+        lossless: {
+            quality: 100,
+        },
+    };
+}

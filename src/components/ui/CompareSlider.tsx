@@ -5,134 +5,134 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface CompareSliderProps {
-  beforeImage: string;
-    afterImage: string;
+      beforeImage: string;
+      afterImage: string;
       beforeLabel?: string;
-        afterLabel?: string;
-          className?: string;
-          }
+      afterLabel?: string;
+      className?: string;
+}
 
-          export function CompareSlider({
-            beforeImage,
-              afterImage,
-                beforeLabel = 'Before',
-                  afterLabel = 'After',
-                    className,
-                    }: CompareSliderProps) {
-                      const [sliderPosition, setSliderPosition] = useState(50);
-                        const [isDragging, setIsDragging] = useState(false);
-                          const containerRef = useRef<HTMLDivElement>(null);
+export function CompareSlider({
+      beforeImage,
+      afterImage,
+      beforeLabel = 'Before',
+      afterLabel = 'After',
+      className,
+}: CompareSliderProps) {
+      const [sliderPosition, setSliderPosition] = useState(50);
+      const [isDragging, setIsDragging] = useState(false);
+      const containerRef = useRef<HTMLDivElement>(null);
 
-                            const handleMove = useCallback(
-                                (clientX: number) => {
-                                      if (!containerRef.current) return;
-                                            const rect = containerRef.current.getBoundingClientRect();
-                                                  const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-                                                        const percentage = (x / rect.width) * 100;
-                                                              setSliderPosition(percentage);
-                                                                  },
-                                                                      []
-                                                                        );
+      const handleMove = useCallback(
+            (clientX: number) => {
+                  if (!containerRef.current) return;
+                  const rect = containerRef.current.getBoundingClientRect();
+                  const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+                  const percentage = (x / rect.width) * 100;
+                  setSliderPosition(percentage);
+            },
+            []
+      );
 
-                                                                          const handleMouseDown = useCallback(() => {
-                                                                              setIsDragging(true);
-                                                                                }, []);
+      const handleMouseDown = useCallback(() => {
+            setIsDragging(true);
+      }, []);
 
-                                                                                  const handleMouseUp = useCallback(() => {
-                                                                                      setIsDragging(false);
-                                                                                        }, []);
+      const handleMouseUp = useCallback(() => {
+            setIsDragging(false);
+      }, []);
 
-                                                                                          const handleMouseMove = useCallback(
-                                                                                              (e: MouseEvent) => {
-                                                                                                    if (isDragging) {
-                                                                                                            handleMove(e.clientX);
-                                                                                                                  }
-                                                                                                                      },
-                                                                                                                          [isDragging, handleMove]
-                                                                                                                            );
+      const handleMouseMove = useCallback(
+            (e: MouseEvent) => {
+                  if (isDragging) {
+                        handleMove(e.clientX);
+                  }
+            },
+            [isDragging, handleMove]
+      );
 
-                                                                                                                              const handleTouchMove = useCallback(
-                                                                                                                                  (e: TouchEvent) => {
-                                                                                                                                        if (isDragging) {
-                                                                                                                                                handleMove(e.touches[0].clientX);
-                                                                                                                                                      }
-                                                                                                                                                          },
-                                                                                                                                                              [isDragging, handleMove]
-                                                                                                                                                                );
+      const handleTouchMove = useCallback(
+            (e: TouchEvent) => {
+                  if (isDragging) {
+                        handleMove(e.touches[0].clientX);
+                  }
+            },
+            [isDragging, handleMove]
+      );
 
-                                                                                                                                                                  useEffect(() => {
-                                                                                                                                                                      window.addEventListener('mousemove', handleMouseMove);
-                                                                                                                                                                          window.addEventListener('mouseup', handleMouseUp);
-                                                                                                                                                                              window.addEventListener('touchmove', handleTouchMove);
-                                                                                                                                                                                  window.addEventListener('touchend', handleMouseUp);
+      useEffect(() => {
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseup', handleMouseUp);
+            window.addEventListener('touchmove', handleTouchMove);
+            window.addEventListener('touchend', handleMouseUp);
 
-                                                                                                                                                                                      return () => {
-                                                                                                                                                                                            window.removeEventListener('mousemove', handleMouseMove);
-                                                                                                                                                                                                  window.removeEventListener('mouseup', handleMouseUp);
-                                                                                                                                                                                                        window.removeEventListener('touchmove', handleTouchMove);
-                                                                                                                                                                                                              window.removeEventListener('touchend', handleMouseUp);
-                                                                                                                                                                                                                  };
-                                                                                                                                                                                                                    }, [handleMouseMove, handleMouseUp, handleTouchMove]);
+            return () => {
+                  window.removeEventListener('mousemove', handleMouseMove);
+                  window.removeEventListener('mouseup', handleMouseUp);
+                  window.removeEventListener('touchmove', handleTouchMove);
+                  window.removeEventListener('touchend', handleMouseUp);
+            };
+      }, [handleMouseMove, handleMouseUp, handleTouchMove]);
 
-                                                                                                                                                                                                                      return (
-                                                                                                                                                                                                                          <div
-                                                                                                                                                                                                                                ref={containerRef}
-                                                                                                                                                                                                                                      className={cn(
-                                                                                                                                                                                                                                              'relative overflow-hidden rounded-xl select-none',
-                                                                                                                                                                                                                                                      className
-                                                                                                                                                                                                                                                            )}
-                                                                                                                                                                                                                                                                >
-                                                                                                                                                                                                                                                                      {/* After image (full) */}
-                                                                                                                                                                                                                                                                            <img
-                                                                                                                                                                                                                                                                                    src={afterImage}
-                                                                                                                                                                                                                                                                                            alt={afterLabel}
-                                                                                                                                                                                                                                                                                                    className="w-full h-auto"
-                                                                                                                                                                                                                                                                                                            draggable={false}
-                                                                                                                                                                                                                                                                                                                  />
+      return (
+            <div
+                  ref={containerRef}
+                  className={cn(
+                        'relative overflow-hidden rounded-xl select-none',
+                        className
+                  )}
+            >
+                  {/* After image (full) */}
+                  <img
+                        src={afterImage}
+                        alt={afterLabel}
+                        className="w-full h-auto"
+                        draggable={false}
+                  />
 
-                                                                                                                                                                                                                                                                                                                        {/* Before image (clipped) */}
-                                                                                                                                                                                                                                                                                                                              <div
-                                                                                                                                                                                                                                                                                                                                      className="absolute top-0 left-0 h-full overflow-hidden"
-                                                                                                                                                                                                                                                                                                                                              style={{ width: `${sliderPosition}%` }}
-                                                                                                                                                                                                                                                                                                                                                    >
-                                                                                                                                                                                                                                                                                                                                                            <img
-                                                                                                                                                                                                                                                                                                                                                                      src={beforeImage}
-                                                                                                                                                                                                                                                                                                                                                                                alt={beforeLabel}
-                                                                                                                                                                                                                                                                                                                                                                                          className="absolute top-0 left-0 h-full"
-                                                                                                                                                                                                                                                                                                                                                                                                    style={{ width: `${100 / (sliderPosition / 100)}%` }}
-                                                                                                                                                                                                                                                                                                                                                                                                              draggable={false}
-                                                                                                                                                                                                                                                                                                                                                                                                                      />
-                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                  {/* Before image (clipped) */}
+                  <div
+                        className="absolute top-0 left-0 h-full overflow-hidden"
+                        style={{ width: `${sliderPosition}%` }}
+                  >
+                        <img
+                              src={beforeImage}
+                              alt={beforeLabel}
+                              className="absolute top-0 left-0 h-full"
+                              style={{ width: `${100 / (sliderPosition / 100)}%` }}
+                              draggable={false}
+                        />
+                  </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                  {/* Slider line */}
-                                                                                                                                                                                                                                                                                                                                                                                                                                        <div
-                                                                                                                                                                                                                                                                                                                                                                                                                                                className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                onMouseDown={handleMouseDown}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        onTouchStart={handleMouseDown}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                              >
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <svg
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            width="16"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        height="16"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    viewBox="0 0 24 24"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                fill="none"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            stroke="currentColor"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        strokeWidth="2"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  >
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <path d="M8 3l-5 9 5 9" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <path d="M16 3l5 9-5 9" />
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </svg>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
+                  {/* Slider line */}
+                  <div
+                        className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize"
+                        style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+                        onMouseDown={handleMouseDown}
+                        onTouchStart={handleMouseDown}
+                  >
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                              <svg
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                              >
+                                    <path d="M8 3l-5 9 5 9" />
+                                    <path d="M16 3l5 9-5 9" />
+                              </svg>
+                        </div>
+                  </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {/* Labels */}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-sm">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {beforeLabel}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-sm">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {afterLabel}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      }
+                  {/* Labels */}
+                  <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-sm">
+                        {beforeLabel}
+                  </div>
+                  <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-sm">
+                        {afterLabel}
+                  </div>
+            </div>
+      );
+}
