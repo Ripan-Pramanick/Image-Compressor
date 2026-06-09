@@ -1,6 +1,4 @@
 import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib';
-// pdfjs-dist imports can cause build-time issues when pulled into server code.
-// Import it dynamically inside client-only functions to avoid bundling on the server.
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
@@ -90,16 +88,18 @@ export async function rotatePDF(
 
   return await pdf.save();
 }
+
 export async function pdfToImages(
   file: File,
   format: 'jpeg' | 'png' = 'png'
 ): Promise<Blob[]> {
   const arrayBuffer = await file.arrayBuffer();
-  // Dynamically import the legacy pdf.js build on the client only.
-  const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf');
+  // Dynamically import the pdf.js build on the client only.
+  const pdfjsLib = await import('pdfjs-dist');
+  
   if (typeof window !== 'undefined') {
-    // configure worker
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+    // configure worker with .mjs extension
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
   }
 
   const loadingTask = pdfjsLib.getDocument(arrayBuffer);
