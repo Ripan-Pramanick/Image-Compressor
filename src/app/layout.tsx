@@ -10,10 +10,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'compressora - Privacy-First File Processing Toolkit',
+    default: 'Compressora - Free Image Compressor & PDF Tools',
     template: '%s | compressora',
   },
-  description: 'Process images and PDFs directly in your browser. No upload to any server. Your files stay on your device.',
+  description: 'Free image compressor, PDF compressor, JPG to PDF, Merge PDF and more. Fast, secure and privacy-friendly.',
   keywords: ['file processing', 'image compression', 'pdf compression', 'privacy', 'browser tools'],
   authors: [{ name: 'compressora' }],
   manifest: '/manifest.json',
